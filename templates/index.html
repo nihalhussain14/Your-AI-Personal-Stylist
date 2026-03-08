@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nothing To Wear - AI Stylist</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .container {
+            background: white;
+            color: black;
+            padding: 30px;
+            border-radius: 15px;
+            width: 400px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #667eea;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #5a67d8;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f4f4f4;
+            border-radius: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Nothing To Wear</h1>
+    <p>Your AI Personal Stylist</p>
+
+    <form action="/generate" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+
+        <select name="event" required>
+            <option value="">Select Event</option>
+            <option>Wedding</option>
+            <option>Office</option>
+            <option>Party</option>
+            <option>Casual</option>
+        </select>
+
+            <div id="wedding-type-container" style="display:none; margin-top:10px;">
+                <select name="wedding_type" id="wedding-type">
+                    <option value="">Select Wedding Type</option>
+                    <option value="Traditional">Traditional</option>
+                    <option value="Formal">Formal</option>
+                </select>
+            </div>
+
+        <button type="submit">✨ Generate Outfit</button>
+    </form>
+
+    {% if result %}
+    <div class="result">
+        <h3>AI Suggestion:</h3>
+        <p>{{ result }}</p>
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</body>
+<script>
+    const eventSelect = document.querySelector('select[name="event"]');
+    const weddingTypeContainer = document.getElementById('wedding-type-container');
+    eventSelect.addEventListener('change', function() {
+        if (eventSelect.value === 'Wedding') {
+            weddingTypeContainer.style.display = 'block';
+        } else {
+            weddingTypeContainer.style.display = 'none';
+            document.getElementById('wedding-type').value = '';
+        }
+    });
+</script>
+</html>
